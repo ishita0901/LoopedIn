@@ -10,7 +10,6 @@ RUN ./mvnw dependency:go-offline
 
 # Copy source code
 COPY src src
-COPY application.properties src/main/resources/
 
 # Build application
 RUN ./mvnw package -DskipTests
