@@ -2,16 +2,17 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copy pom.xml separately to cache dependencies
 COPY pom.xml .
 COPY mvnw .
 COPY .mvn .mvn
+
+# Add execute permission
+RUN chmod +x mvnw
+
 RUN ./mvnw dependency:go-offline
 
-# Copy source code
 COPY src src
 
-# Build application
 RUN ./mvnw package -DskipTests
 
 EXPOSE 8091
