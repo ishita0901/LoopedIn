@@ -2,18 +2,14 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
+# Install required packages
+RUN apk add --no-cache maven
+
 COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
-
-# Add execute permission
-RUN chmod +x mvnw
-
-RUN ./mvnw dependency:go-offline
-
 COPY src src
 
-RUN ./mvnw package -DskipTests
+# Build with maven directly instead of mvnw
+RUN mvn clean package -DskipTests
 
 EXPOSE 8091
 
