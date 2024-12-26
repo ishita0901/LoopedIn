@@ -30,4 +30,4 @@ ENV SPRING_DATASOURCE_USERNAME=${DB_USER}
 ENV SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
 
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "echo \"Database URL: $SPRING_DATASOURCE_URL\" && echo \"Database User: $SPRING_DATASOURCE_USERNAME\" && java -jar app.jar"]
