@@ -119,7 +119,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.example.socialMediaApp.SocialMediaAppApplication</mainClass>
+					<mainClass>socialMediaApp.SocialMediaAppApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
