@@ -2,15 +2,17 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Install required packages
+# Add dependencies
 RUN apk add --no-cache maven
 
+# Copy project files
 COPY pom.xml .
 COPY src src
 
-# Build with maven directly instead of mvnw
-RUN mvn clean package -DskipTests
+# Add compile arg for Lombok
+RUN mvn clean package -DskipTests --add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED
 
 EXPOSE 8091
 
-ENTRYPOINT ["java","-jar","target/*.jar"]
+# Update jar path to match your actual jar name
+ENTRYPOINT ["java","-jar","target/socialMediaApp-0.0.1-SNAPSHOT.jar"]
