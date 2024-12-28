@@ -34,18 +34,35 @@ public class SecurityConfig {
     private JwtAuthFilter jwtFilter;
 
     @Bean
-    UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://loopdein.netlify.app"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "content-type"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-type"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // 1 hour in seconds
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+UrlBasedCorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://loopdein.netlify.app"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+    
+    // Add more headers that are commonly required
+    configuration.setAllowedHeaders(Arrays.asList(
+        "Authorization", 
+        "Content-Type", 
+        "Accept", 
+        "Origin",
+        "Access-Control-Allow-Origin",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers"
+    ));
+    
+    configuration.setExposedHeaders(Arrays.asList(
+        "Authorization", 
+        "Content-Type",
+        "Access-Control-Allow-Origin"
+    ));
+    
+    configuration.setAllowCredentials(true);
+    configuration.setMaxAge(3600L);
+    
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+}
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
